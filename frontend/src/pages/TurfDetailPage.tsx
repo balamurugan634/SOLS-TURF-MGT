@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   MapPin, Star, Calendar, Clock, ShieldCheck, Check,
-  ChevronRight, ArrowLeft, AlertCircle, Sparkles, CreditCard,
-  QrCode, Printer, CheckCircle2, ChevronLeft, Phone, Mail, User as UserIcon
+  ChevronRight, ChevronDown, ArrowLeft, ArrowRight, AlertCircle, Sparkles, CreditCard,
+  QrCode, Printer, CheckCircle2, ChevronLeft, Phone, Mail, User as UserIcon,
+  Users, Sun, Car, Info, X
 } from 'lucide-react';
 import { Turf, DaySlotsData, Slot, Booking } from '../types';
 import { api } from '../services/api';
@@ -204,7 +205,7 @@ export const TurfDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-16">
-      
+
       {/* Breadcrumb Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between text-xs text-gray-500">
@@ -223,7 +224,7 @@ export const TurfDetailPage: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        
+
         {/* ========================================================= */}
         {/* TURF TITLE & GALLERY HEADER */}
         {/* ========================================================= */}
@@ -275,9 +276,8 @@ export const TurfDetailPage: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`relative flex-1 md:h-1/3 rounded-xl overflow-hidden border-2 transition-all shrink-0 w-28 md:w-full ${
-                    activeImageIndex === idx ? 'border-[#166534] shadow-md scale-[1.02]' : 'border-transparent opacity-75 hover:opacity-100'
-                  }`}
+                  className={`relative flex-1 md:h-1/3 rounded-xl overflow-hidden border-2 transition-all shrink-0 w-28 md:w-full ${activeImageIndex === idx ? 'border-[#166534] shadow-md scale-[1.02]' : 'border-transparent opacity-75 hover:opacity-100'
+                    }`}
                 >
                   <img
                     src={img}
@@ -323,12 +323,12 @@ export const TurfDetailPage: React.FC = () => {
         {/* 2-COLUMN LAYOUT: SLOTS SELECTION & BOOKING SUMMARY */}
         {/* ========================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* LEFT 2 COLS: SLOT BOOKING SECTION */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-soft">
-              
+
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-100 gap-3">
                 <div>
                   <h2 className="text-xl font-bold text-gray-900">Select Date & Time Slot</h2>
@@ -341,17 +341,15 @@ export const TurfDetailPage: React.FC = () => {
                 <div className="flex items-center bg-gray-100 p-1 rounded-xl text-xs font-semibold self-start sm:self-auto">
                   <button
                     onClick={() => setSlotDuration('60')}
-                    className={`px-3 py-1 rounded-lg transition-all ${
-                      slotDuration === '60' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-                    }`}
+                    className={`px-3 py-1 rounded-lg transition-all ${slotDuration === '60' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
+                      }`}
                   >
                     60 Mins
                   </button>
                   <button
                     onClick={() => setSlotDuration('30')}
-                    className={`px-3 py-1 rounded-lg transition-all ${
-                      slotDuration === '30' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
-                    }`}
+                    className={`px-3 py-1 rounded-lg transition-all ${slotDuration === '30' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'
+                      }`}
                   >
                     30 Mins
                   </button>
@@ -376,11 +374,10 @@ export const TurfDetailPage: React.FC = () => {
                       <button
                         key={item.date}
                         onClick={() => setSelectedDate(item.date)}
-                        className={`flex flex-col items-center justify-center min-w-[76px] py-3 px-2 rounded-2xl border transition-all shrink-0 ${
-                          isSelected
+                        className={`flex flex-col items-center justify-center min-w-[76px] py-3 px-2 rounded-2xl border transition-all shrink-0 ${isSelected
                             ? 'bg-[#166534] text-white border-[#166534] shadow-md scale-105'
                             : 'bg-white border-gray-200 text-gray-700 hover:border-emerald-300 hover:bg-emerald-50/40'
-                        }`}
+                          }`}
                       >
                         <span className={`text-[11px] font-medium ${isSelected ? 'text-emerald-200' : 'text-gray-400'}`}>
                           {item.dayName}
@@ -392,9 +389,8 @@ export const TurfDetailPage: React.FC = () => {
                           {item.monthName}
                         </span>
                         {item.isWeekend && (
-                          <span className={`text-[9px] mt-1 px-1 rounded ${
-                            isSelected ? 'bg-emerald-800 text-emerald-200' : 'bg-amber-100 text-amber-800'
-                          }`}>
+                          <span className={`text-[9px] mt-1 px-1 rounded ${isSelected ? 'bg-emerald-800 text-emerald-200' : 'bg-amber-100 text-amber-800'
+                            }`}>
                             Weekend
                           </span>
                         )}
@@ -411,11 +407,10 @@ export const TurfDetailPage: React.FC = () => {
                   <button
                     key={period}
                     onClick={() => setPeriodFilter(period)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                      periodFilter === period
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${periodFilter === period
                         ? 'bg-[#064E3B] text-white shadow-sm'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
+                      }`}
                   >
                     {period} {period === 'Morning' ? '(6AM-12PM)' : period === 'Afternoon' ? '(12PM-4PM)' : period === 'Evening' ? '(4PM-8PM)' : period === 'Night' ? '(8PM-12AM)' : ''}
                   </button>
@@ -472,15 +467,14 @@ export const TurfDetailPage: React.FC = () => {
                         type="button"
                         disabled={isBooked || isUnavailable}
                         onClick={() => handleSlotClick(slot)}
-                        className={`relative p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between min-h-[82px] ${
-                          isSelected
+                        className={`relative p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between min-h-[82px] ${isSelected
                             ? 'bg-[#166534] text-white border-[#166534] shadow-md ring-2 ring-[#22c55e] scale-[1.02]'
                             : isBooked
-                            ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-75'
-                            : isUnavailable
-                            ? 'bg-red-50 text-red-500 border-red-200 cursor-not-allowed opacity-80'
-                            : 'bg-white text-gray-900 border-gray-200 hover:border-emerald-600 hover:shadow-md cursor-pointer'
-                        }`}
+                              ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-75'
+                              : isUnavailable
+                                ? 'bg-red-50 text-red-500 border-red-200 cursor-not-allowed opacity-80'
+                                : 'bg-white text-gray-900 border-gray-200 hover:border-emerald-600 hover:shadow-md cursor-pointer'
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <span className={`text-xs font-bold ${isSelected ? 'text-white' : isBooked ? 'text-gray-400' : 'text-gray-800'}`}>
@@ -504,9 +498,8 @@ export const TurfDetailPage: React.FC = () => {
                                 ₹{slot.price}
                               </span>
                               {slot.is_peak && (
-                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                                  isSelected ? 'bg-emerald-800 text-emerald-200' : 'bg-amber-100 text-amber-800'
-                                }`}>
+                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${isSelected ? 'bg-emerald-800 text-emerald-200' : 'bg-amber-100 text-amber-800'
+                                  }`}>
                                   Peak
                                 </span>
                               )}
@@ -544,7 +537,7 @@ export const TurfDetailPage: React.FC = () => {
           {/* RIGHT 1 COL: BOOKING SUMMARY SIDEBAR */}
           <div className="lg:sticky lg:top-24 space-y-4">
             <div className="bg-white rounded-3xl p-6 border border-gray-200 shadow-card">
-              
+
               <h3 className="text-lg font-bold text-gray-900 pb-3 border-b border-gray-100 mb-4">
                 Booking Summary
               </h3>
@@ -633,335 +626,528 @@ export const TurfDetailPage: React.FC = () => {
       </div>
 
       {/* ========================================================= */}
-      {/* 4-STEP CHECKOUT & PAYMENT MODAL */}
+      {/* 4-STEP CHECKOUT & PAYMENT MODAL (SPLIT 2-COLUMN SHOWCASE) */}
       {/* ========================================================= */}
       {checkoutModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-gray-100 overflow-hidden animate-fade-in my-8">
-            
-            {/* Modal Header with Progress */}
-            <div className="bg-[#064E3B] text-white p-5">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-300">
-                  Step {currentStep} of 4: {currentStep === 2 ? 'Player Details' : currentStep === 3 ? 'Payment' : 'Confirmed'}
-                </span>
-                {currentStep < 4 && (
-                  <button
-                    onClick={() => setCheckoutModalOpen(false)}
-                    className="text-emerald-200 hover:text-white text-xs font-semibold"
-                  >
-                    Cancel
-                  </button>
-                )}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border border-gray-100 overflow-hidden flex flex-col md:flex-row animate-fade-in my-8 relative">
+
+            {/* LEFT COLUMN: TURF SHOWCASE & VENUE HIGHLIGHTS */}
+            <div className="w-full md:w-[42%] lg:w-[380px] shrink-0 relative flex flex-col justify-between p-7 text-white overflow-hidden min-h-[340px] md:min-h-[530px]">
+              {/* Stadium Photo Background */}
+              <img
+                src={turf.main_image || '/images/turf-greenfield.jpg'}
+                alt={turf.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              {/* Dark Gradient Overlay for Contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/60" />
+
+              {/* Brand Logo */}
+              <div className="relative z-10 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-sm shadow-md font-bold">
+                  ⚽
+                </div>
+                <span className="text-xl font-black tracking-tight text-white drop-shadow">TurfHub</span>
               </div>
 
-              {/* Progress Bar */}
-              <div className="grid grid-cols-4 gap-1.5">
-                {[1, 2, 3, 4].map(s => (
-                  <div
-                    key={s}
-                    className={`h-1.5 rounded-full ${
-                      currentStep >= s ? 'bg-[#22c55e]' : 'bg-emerald-900'
-                    }`}
-                  />
-                ))}
+              {/* Bottom Turf Details & 4 Amenities */}
+              <div className="relative z-10 space-y-3 pt-12">
+                <h2 className="text-2xl font-black text-white tracking-tight leading-tight">
+                  {turf.name}
+                </h2>
+
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-200 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="truncate">{turf.location}</span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-xs font-semibold text-white">
+                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    <span>{turf.rating || '4.8'} ({turf.review_count || 236} reviews)</span>
+                  </div>
+                </div>
+
+                {/* 4 Amenities row */}
+                <div className="grid grid-cols-4 gap-2 pt-4 border-t border-white/15 text-center">
+                  <div className="flex flex-col items-center">
+                    <Users className="w-5 h-5 text-white/90 mb-1" />
+                    <span className="text-[11px] font-medium text-white/90">5-a-side</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <Sun className="w-5 h-5 text-white/90 mb-1" />
+                    <span className="text-[11px] font-medium text-white/90">Floodlights</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <svg className="w-5 h-5 text-white/90 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="7" r="3" />
+                      <rect x="5" y="13" width="6" height="8" rx="1" />
+                      <rect x="13" y="13" width="6" height="8" rx="1" />
+                    </svg>
+                    <span className="text-[11px] font-medium text-white/90">Changing Room</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <svg className="w-5 h-5 text-white/90 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 21V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v14" />
+                      <path d="M9 12h6" />
+                    </svg>
+                    <span className="text-[11px] font-medium text-white/90">Parking</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Error banner */}
-            {bookingError && (
-              <div className="m-5 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{bookingError}</span>
-              </div>
-            )}
+            {/* RIGHT COLUMN: INTERACTIVE FORM & STEP PROGRESS */}
+            <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between bg-white relative min-w-0">
+              {/* Close Button */}
+              {currentStep < 4 && (
+                <button
+                  type="button"
+                  onClick={() => setCheckoutModalOpen(false)}
+                  className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 p-1.5 rounded-full hover:bg-gray-100 transition-colors z-20"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
 
-            {/* STEP 2: ENTER BOOKING DETAILS */}
-            {currentStep === 2 && (
-              <form onSubmit={handleProceedToPayment} className="p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900">Player & Team Information</h3>
-                
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Lead Player Name</label>
-                  <div className="relative">
-                    <UserIcon className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. John Doe"
-                      value={playerName}
-                      onChange={(e) => setPlayerName(e.target.value)}
-                      className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Email Address</label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. john.doe@example.com"
-                      value={playerEmail}
-                      onChange={(e) => setPlayerEmail(e.target.value)}
-                      className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+91 99000 88776"
-                      value={playerPhone}
-                      onChange={(e) => setPlayerPhone(e.target.value)}
-                      className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Sport</label>
-                  <select
-                    value={selectedSport}
-                    onChange={(e) => setSelectedSport(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#166534]"
-                  >
-                    {turf.sports?.map(s => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="pt-3 flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setCheckoutModalOpen(false)}
-                    className="flex-1 py-3 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 py-3 bg-[#166534] hover:bg-[#064E3B] text-white rounded-xl text-xs font-bold shadow-md"
-                  >
-                    Proceed to Payment (₹{totalAmount})
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* STEP 3: REVIEW & PAYMENT (Razorpay Styled Gateway Simulation) */}
-            {currentStep === 3 && (
-              <div className="p-6 space-y-5">
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200/80 text-xs space-y-2">
-                  <div className="flex justify-between font-bold text-gray-900 text-sm pb-1 border-b border-gray-200">
-                    <span>{turf.name}</span>
-                    <span className="text-[#166534]">₹{totalAmount}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Slot:</span>
-                    <span className="font-semibold text-gray-800">{selectedDate} • {selectedSlot?.start_time} - {selectedSlot?.end_time}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Customer:</span>
-                    <span className="font-semibold text-gray-800">{playerName} ({playerPhone})</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
-                    Select Payment Gateway Method
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('UPI')}
-                      className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${
-                        paymentMethod === 'UPI'
-                          ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
-                          : 'border-gray-200 hover:bg-gray-50 text-gray-700'
-                      }`}
-                    >
-                      UPI (GPay/Paytm)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('CARD')}
-                      className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${
-                        paymentMethod === 'CARD'
-                          ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
-                          : 'border-gray-200 hover:bg-gray-50 text-gray-700'
-                      }`}
-                    >
-                      Credit/Debit Card
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('NETBANKING')}
-                      className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${
-                        paymentMethod === 'NETBANKING'
-                          ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
-                          : 'border-gray-200 hover:bg-gray-50 text-gray-700'
-                      }`}
-                    >
-                      Net Banking
-                    </button>
-                  </div>
-                </div>
-
-                {paymentMethod === 'UPI' && (
-                  <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-200 space-y-2">
-                    <label className="block text-[11px] font-bold text-emerald-950">Enter Virtual Payment Address (UPI ID)</label>
-                    <input
-                      type="text"
-                      value={upiId}
-                      onChange={(e) => setUpiId(e.target.value)}
-                      className="w-full px-3 py-2 bg-white border border-emerald-300 rounded-lg text-xs font-medium text-gray-800"
-                    />
-                    <p className="text-[10px] text-emerald-800">You will receive an approval notification on GPay / PhonePe.</p>
-                  </div>
-                )}
-
-                {paymentMethod === 'CARD' && (
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
-                    <label className="block text-[11px] font-bold text-gray-700">Card Number</label>
-                    <input
-                      type="text"
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                      className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs font-medium text-gray-800"
-                    />
-                    <div className="grid grid-cols-2 gap-2 pt-1">
-                      <input type="text" placeholder="MM/YY" defaultValue="09/28" className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs" />
-                      <input type="password" placeholder="CVV" defaultValue="982" className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs" />
-                    </div>
-                  </div>
-                )}
-
-                {paymentMethod === 'NETBANKING' && (
-                  <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs text-gray-700">
-                    <select className="w-full p-2 bg-white border border-gray-300 rounded-lg text-xs">
-                      <option>HDFC Bank</option>
-                      <option>State Bank of India</option>
-                      <option>ICICI Bank</option>
-                      <option>Axis Bank</option>
-                    </select>
-                  </div>
-                )}
-
-                <div className="pt-2 flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(2)}
-                    className="flex-1 py-3 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="button"
-                    disabled={isProcessingPayment}
-                    onClick={handleExecutePayment}
-                    className="flex-1 py-3 bg-[#166534] hover:bg-[#064E3B] text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {isProcessingPayment ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Securing Slot...</span>
-                      </>
-                    ) : (
-                      <span>Confirm & Pay ₹{totalAmount}</span>
-                    )}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* STEP 4: BOOKING CONFIRMATION & RECEIPT */}
-            {currentStep === 4 && confirmedBooking && (
-              <div id="printable-receipt" className="p-6 space-y-5 text-center">
-                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-[#166534] animate-bounce">
-                  <CheckCircle2 className="w-10 h-10 stroke-[2.2]" />
-                </div>
-
-                <div>
-                  <span className="text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
-                    Booking Confirmed!
-                  </span>
-                  <h3 className="text-2xl font-black text-gray-900 mt-2">
-                    You're All Set to Play!
+              <div>
+                {/* Step Header */}
+                <div className="pr-8">
+                  <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+                    {currentStep === 2 && 'Step 2 of 4: Player Details'}
+                    {currentStep === 3 && 'Step 3 of 4: Review & Payment'}
+                    {currentStep === 4 && 'Step 4 of 4: Booking Confirmation'}
                   </h3>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Booking ID: <strong className="text-gray-900 font-mono">{confirmedBooking.booking_id}</strong>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                    {currentStep === 2 && 'Tell us about the player and team'}
+                    {currentStep === 3 && 'Review your booking details and complete payment'}
+                    {currentStep === 4 && 'Your turf slot is confirmed and reserved'}
                   </p>
                 </div>
 
-                {/* Match Ticket Voucher */}
-                <div className="bg-gradient-to-br from-emerald-50 to-white p-5 rounded-2xl border-2 border-dashed border-emerald-300 text-left space-y-3 relative shadow-inner">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h4 className="font-extrabold text-base text-gray-900">{confirmedBooking.turf_name}</h4>
-                      <p className="text-xs text-gray-500">{confirmedBooking.turf_location}</p>
+                {/* Stepper Progress Bar */}
+                <div className="py-4 my-1">
+                  <div className="flex items-center justify-between relative">
+                    {/* Step 1 */}
+                    <div className="flex flex-col items-center shrink-0 z-10 w-20">
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        currentStep >= 2 ? 'bg-[#16a34a] text-white shadow-sm' : 'bg-[#166534] text-white'
+                      }`}>
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      </div>
+                      <span className="text-[11px] sm:text-xs font-semibold text-[#16a34a] mt-1.5 text-center">
+                        Select Slot
+                      </span>
                     </div>
-                    {/* Simulated QR Code */}
-                    <div className="w-14 h-14 bg-white p-1 rounded-lg border border-emerald-200 flex items-center justify-center shadow-sm">
-                      <QrCode className="w-12 h-12 text-[#064E3B]" />
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-emerald-200/80">
-                    <div>
-                      <span className="text-gray-400 block text-[10px]">MATCH DATE</span>
-                      <strong className="text-gray-900">{confirmedBooking.booking_date}</strong>
+                    {/* Connector Line 1 to 2 */}
+                    <div className={`flex-1 h-[2.5px] -mt-5 mx-1 transition-colors ${
+                      currentStep >= 2 ? 'bg-[#16a34a]' : 'bg-gray-200'
+                    }`} />
+
+                    {/* Step 2 */}
+                    <div className="flex flex-col items-center shrink-0 z-10 w-24">
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        currentStep > 2
+                          ? 'bg-[#16a34a] text-white shadow-sm'
+                          : currentStep === 2
+                          ? 'bg-[#166534] text-white ring-2 ring-emerald-600/30 shadow-sm'
+                          : 'border border-gray-300 bg-white text-gray-400'
+                      }`}>
+                        {currentStep > 2 ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : '2'}
+                      </div>
+                      <span className={`text-[11px] sm:text-xs mt-1.5 text-center ${
+                        currentStep === 2 ? 'font-bold text-[#166534]' : currentStep > 2 ? 'font-semibold text-[#16a34a]' : 'font-medium text-gray-400'
+                      }`}>
+                        Player Details
+                      </span>
                     </div>
-                    <div>
-                      <span className="text-gray-400 block text-[10px]">TIME SLOT</span>
-                      <strong className="text-gray-900">{confirmedBooking.start_time} - {confirmedBooking.end_time}</strong>
+
+                    {/* Connector Line 2 to 3 */}
+                    <div className={`flex-1 h-[2.5px] -mt-5 mx-1 transition-colors ${
+                      currentStep >= 3 ? 'bg-[#16a34a]' : 'bg-gray-200'
+                    }`} />
+
+                    {/* Step 3 */}
+                    <div className="flex flex-col items-center shrink-0 z-10 w-20">
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        currentStep > 3
+                          ? 'bg-[#16a34a] text-white shadow-sm'
+                          : currentStep === 3
+                          ? 'bg-[#166534] text-white ring-2 ring-emerald-600/30 shadow-sm'
+                          : 'border border-gray-300 bg-white text-gray-400'
+                      }`}>
+                        {currentStep > 3 ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : '3'}
+                      </div>
+                      <span className={`text-[11px] sm:text-xs mt-1.5 text-center ${
+                        currentStep === 3 ? 'font-bold text-[#166534]' : currentStep > 3 ? 'font-semibold text-[#16a34a]' : 'font-medium text-gray-400'
+                      }`}>
+                        Review
+                      </span>
                     </div>
-                    <div>
-                      <span className="text-gray-400 block text-[10px]">SPORT</span>
-                      <strong className="text-gray-900">{confirmedBooking.sport}</strong>
-                    </div>
-                    <div>
-                      <span className="text-gray-400 block text-[10px]">TOTAL PAID</span>
-                      <strong className="text-[#166534]">₹{confirmedBooking.total_amount} (Verified)</strong>
+
+                    {/* Connector Line 3 to 4 */}
+                    <div className={`flex-1 h-[2.5px] -mt-5 mx-1 transition-colors ${
+                      currentStep >= 4 ? 'bg-[#16a34a]' : 'bg-gray-200'
+                    }`} />
+
+                    {/* Step 4 */}
+                    <div className="flex flex-col items-center shrink-0 z-10 w-24">
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        currentStep === 4
+                          ? 'bg-[#166534] text-white ring-2 ring-emerald-600/30 shadow-sm'
+                          : 'border border-gray-300 bg-white text-gray-400'
+                      }`}>
+                        {currentStep === 4 ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : '4'}
+                      </div>
+                      <span className={`text-[11px] sm:text-xs mt-1.5 text-center ${
+                        currentStep === 4 ? 'font-bold text-[#166534]' : 'font-medium text-gray-400'
+                      }`}>
+                        Confirmation
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="pt-2 flex flex-col gap-2.5 no-print">
-                  <button
-                    onClick={printReceipt}
-                    className="w-full py-2.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm"
-                  >
-                    <Printer className="w-4 h-4" />
-                    Download / Print Match Ticket
-                  </button>
+                {/* Error banner */}
+                {bookingError && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{bookingError}</span>
+                  </div>
+                )}
 
-                  <Link
-                    to="/my-bookings"
-                    onClick={() => setCheckoutModalOpen(false)}
-                    className="w-full py-2.5 bg-[#166534] hover:bg-[#064E3B] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm"
-                  >
-                    View in My Bookings
-                  </Link>
+                {/* STEP 2: ENTER BOOKING DETAILS */}
+                {currentStep === 2 && (
+                  <form onSubmit={handleProceedToPayment} className="space-y-4">
+                    <div className="flex items-center gap-2.5 pb-1">
+                      <Users className="w-5 h-5 text-emerald-600" />
+                      <h4 className="text-base font-bold text-gray-900">
+                        Player & Team Information
+                      </h4>
+                    </div>
 
-                  <button
-                    onClick={() => setCheckoutModalOpen(false)}
-                    className="w-full py-2 text-xs font-semibold text-gray-500 hover:text-gray-800"
-                  >
-                    Close Window
-                  </button>
-                </div>
+                    {/* 2x2 Input Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {/* Lead Player Name */}
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-800 mb-1.5">
+                          Lead Player Name <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative rounded-xl border border-gray-200 bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-600/10 transition-all">
+                          <UserIcon className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            required
+                            placeholder="John Doe"
+                            value={playerName}
+                            onChange={(e) => setPlayerName(e.target.value)}
+                            className="w-full pl-10 pr-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none bg-transparent rounded-xl"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Email Address */}
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-800 mb-1.5">
+                          Email Address <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative rounded-xl border border-gray-200 bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-600/10 transition-all">
+                          <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="email"
+                            required
+                            placeholder="john.doe@example.com"
+                            value={playerEmail}
+                            onChange={(e) => setPlayerEmail(e.target.value)}
+                            className="w-full pl-10 pr-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none bg-transparent rounded-xl"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Phone Number */}
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-800 mb-1.5">
+                          Phone Number <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative rounded-xl border border-gray-200 bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-600/10 transition-all">
+                          <Phone className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="tel"
+                            required
+                            placeholder="+91 99000 88776"
+                            value={playerPhone}
+                            onChange={(e) => setPlayerPhone(e.target.value)}
+                            className="w-full pl-10 pr-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none bg-transparent rounded-xl"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Sport */}
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-800 mb-1.5">
+                          Sport <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative rounded-xl border border-gray-200 bg-white focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-600/10 transition-all">
+                          <span className="text-sm absolute left-3.5 top-1/2 -translate-y-1/2 select-none">
+                            ⚽
+                          </span>
+                          <select
+                            value={selectedSport}
+                            onChange={(e) => setSelectedSport(e.target.value)}
+                            className="w-full pl-10 pr-9 py-2.5 text-sm text-gray-900 font-medium outline-none bg-transparent appearance-none cursor-pointer rounded-xl"
+                          >
+                            {turf.sports && turf.sports.length > 0 ? (
+                              turf.sports.map(s => (
+                                <option key={s} value={s}>{s}</option>
+                              ))
+                            ) : (
+                              <>
+                                <option value="Football">Football</option>
+                                <option value="Cricket">Cricket</option>
+                                <option value="Badminton">Badminton</option>
+                              </>
+                            )}
+                          </select>
+                          <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Information Banner */}
+                    <div className="p-3 bg-emerald-50/80 border border-emerald-100 rounded-xl flex items-center gap-2.5 text-xs text-emerald-900">
+                      <Info className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>The lead player will receive the booking confirmation and updates.</span>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setCheckoutModalOpen(false)}
+                        className="px-5 py-2.5 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold text-sm rounded-xl flex items-center gap-2 transition-all shadow-sm active:scale-95"
+                      >
+                        <ArrowLeft className="w-4 h-4 text-gray-600" />
+                        <span>Back</span>
+                      </button>
+
+                      <button
+                        type="submit"
+                        className="px-6 py-2.5 bg-[#064E3B] hover:bg-[#043d2e] text-white font-semibold text-sm rounded-xl flex items-center gap-2 shadow-sm transition-all active:scale-95"
+                      >
+                        <span>Continue to Review (₹{(selectedSlot ? selectedSlot.price : turf.hourly_base_price).toLocaleString()})</span>
+                        <ArrowRight className="w-4 h-4 text-white" />
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {/* STEP 3: REVIEW & PAYMENT (Razorpay Styled Simulation) */}
+                {currentStep === 3 && (
+                  <div className="space-y-4">
+                    <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200/80 text-xs space-y-2">
+                      <div className="flex justify-between font-bold text-gray-900 text-sm pb-1 border-b border-gray-200">
+                        <span>{turf.name}</span>
+                        <span className="text-[#166534]">₹{totalAmount.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Slot:</span>
+                        <span className="font-semibold text-gray-800">{selectedDate} • {selectedSlot?.start_time} - {selectedSlot?.end_time}</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Customer:</span>
+                        <span className="font-semibold text-gray-800">{playerName} ({playerPhone})</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Sport:</span>
+                        <span className="font-semibold text-gray-800">{selectedSport}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                        Select Payment Gateway Method
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod('UPI')}
+                          className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${paymentMethod === 'UPI'
+                              ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
+                              : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                            }`}
+                        >
+                          UPI (GPay/Paytm)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod('CARD')}
+                          className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${paymentMethod === 'CARD'
+                              ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
+                              : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                            }`}
+                        >
+                          Credit/Debit Card
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPaymentMethod('NETBANKING')}
+                          className={`p-3 rounded-xl border text-center font-bold text-xs transition-all ${paymentMethod === 'NETBANKING'
+                              ? 'border-[#166534] bg-emerald-50 text-[#166534] ring-1 ring-[#166534]'
+                              : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                            }`}
+                        >
+                          Net Banking
+                        </button>
+                      </div>
+                    </div>
+
+                    {paymentMethod === 'UPI' && (
+                      <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-200 space-y-2">
+                        <label className="block text-[11px] font-bold text-emerald-950">Enter Virtual Payment Address (UPI ID)</label>
+                        <input
+                          type="text"
+                          value={upiId}
+                          onChange={(e) => setUpiId(e.target.value)}
+                          className="w-full px-3 py-2 bg-white border border-emerald-300 rounded-lg text-xs font-medium text-gray-800"
+                        />
+                        <p className="text-[10px] text-emerald-800">You will receive an approval notification on GPay / PhonePe.</p>
+                      </div>
+                    )}
+
+                    {paymentMethod === 'CARD' && (
+                      <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
+                        <label className="block text-[11px] font-bold text-gray-700">Card Number</label>
+                        <input
+                          type="text"
+                          value={cardNumber}
+                          onChange={(e) => setCardNumber(e.target.value)}
+                          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs font-medium text-gray-800"
+                        />
+                        <div className="grid grid-cols-2 gap-2 pt-1">
+                          <input type="text" placeholder="MM/YY" defaultValue="09/28" className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs" />
+                          <input type="password" placeholder="CVV" defaultValue="982" className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs" />
+                        </div>
+                      </div>
+                    )}
+
+                    {paymentMethod === 'NETBANKING' && (
+                      <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs text-gray-700">
+                        <select className="w-full p-2 bg-white border border-gray-300 rounded-lg text-xs">
+                          <option>HDFC Bank</option>
+                          <option>State Bank of India</option>
+                          <option>ICICI Bank</option>
+                          <option>Axis Bank</option>
+                        </select>
+                      </div>
+                    )}
+
+                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(2)}
+                        className="px-5 py-2.5 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold text-sm rounded-xl flex items-center gap-2 transition-all shadow-sm active:scale-95"
+                      >
+                        <ArrowLeft className="w-4 h-4 text-gray-600" />
+                        <span>Back</span>
+                      </button>
+                      <button
+                        type="button"
+                        disabled={isProcessingPayment}
+                        onClick={handleExecutePayment}
+                        className="px-6 py-2.5 bg-[#064E3B] hover:bg-[#043d2e] text-white font-semibold text-sm rounded-xl shadow-sm flex items-center gap-2 disabled:opacity-50 transition-all active:scale-95"
+                      >
+                        {isProcessingPayment ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Securing Slot...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Confirm & Pay ₹{totalAmount.toLocaleString()}</span>
+                            <ArrowRight className="w-4 h-4 text-white" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 4: BOOKING CONFIRMATION & RECEIPT */}
+                {currentStep === 4 && confirmedBooking && (
+                  <div id="printable-receipt" className="space-y-4 text-center">
+                    <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-[#166534]">
+                      <CheckCircle2 className="w-8 h-8 stroke-[2.2]" />
+                    </div>
+
+                    <div>
+                      <span className="text-[11px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                        Booking Confirmed!
+                      </span>
+                      <h4 className="text-xl font-black text-gray-900 mt-2">
+                        You're All Set to Play!
+                      </h4>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        Booking ID: <strong className="text-gray-900 font-mono">{confirmedBooking.booking_id}</strong>
+                      </p>
+                    </div>
+
+                    {/* Match Ticket Voucher */}
+                    <div className="bg-gradient-to-br from-emerald-50 to-white p-4 rounded-2xl border-2 border-dashed border-emerald-300 text-left space-y-2.5 relative shadow-inner">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-extrabold text-sm text-gray-900">{confirmedBooking.turf_name}</h4>
+                          <p className="text-xs text-gray-500">{confirmedBooking.turf_location}</p>
+                        </div>
+                        <div className="w-12 h-12 bg-white p-1 rounded-lg border border-emerald-200 flex items-center justify-center shadow-sm">
+                          <QrCode className="w-10 h-10 text-[#064E3B]" />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-emerald-200/80">
+                        <div>
+                          <span className="text-gray-400 block text-[10px]">MATCH DATE</span>
+                          <strong className="text-gray-900">{confirmedBooking.booking_date}</strong>
+                        </div>
+                        <div>
+                          <span className="text-gray-400 block text-[10px]">TIME SLOT</span>
+                          <strong className="text-gray-900">{confirmedBooking.start_time} - {confirmedBooking.end_time}</strong>
+                        </div>
+                        <div>
+                          <span className="text-gray-400 block text-[10px]">SPORT</span>
+                          <strong className="text-gray-900">{confirmedBooking.sport}</strong>
+                        </div>
+                        <div>
+                          <span className="text-gray-400 block text-[10px]">TOTAL PAID</span>
+                          <strong className="text-[#166534]">₹{confirmedBooking.total_amount} (Verified)</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="pt-2 flex flex-col sm:flex-row gap-2 no-print">
+                      <button
+                        onClick={printReceipt}
+                        className="flex-1 py-2.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm"
+                      >
+                        <Printer className="w-4 h-4" />
+                        Print Ticket
+                      </button>
+
+                      <Link
+                        to="/my-bookings"
+                        onClick={() => setCheckoutModalOpen(false)}
+                        className="flex-1 py-2.5 bg-[#166534] hover:bg-[#064E3B] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm"
+                      >
+                        My Bookings
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
 
           </div>
         </div>
