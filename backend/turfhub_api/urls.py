@@ -36,4 +36,9 @@ urlpatterns = [
     path("admin/bookings/", views.admin_all_bookings_view, name="admin-all-bookings"),
     path("admin/payments/", views.admin_payments_view, name="admin-payments"),
     path("admin/audit-logs/", views.admin_audit_logs_view, name="admin-audit-logs"),
+
+    # Health & Serverless Database Initialization
+    path("health/", views.health_check_view, name="health-check"),
+    path("setup-db/", views.setup_database_view, name="setup-database"),
 ]
+

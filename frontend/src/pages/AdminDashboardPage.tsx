@@ -34,6 +34,8 @@ export const AdminDashboardPage: React.FC = () => {
   const [createSuccessData, setCreateSuccessData] = useState<{ owner: User; temporary_password?: string; instructions?: string } | null>(null);
   const [copiedPass, setCopiedPass] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [resetPassResult, setResetPassResult] = useState<{ ownerName: string; tempPassword: string } | null>(null);
+  const [resetPassCopied, setResetPassCopied] = useState(false);
 
   // Create Turf Modal
   const [createTurfModalOpen, setCreateTurfModalOpen] = useState(false);
@@ -137,11 +139,21 @@ export const AdminDashboardPage: React.FC = () => {
   const handleResetOwnerPassword = async (ownerId: number) => {
     try {
       const res = await api.updateOwnerStatus(ownerId, { reset_password: true });
-      alert(`Temporary password reset for ${res.owner.name}:\n\nNew Temporary Password: ${res.temporary_password}\n\nOwner will be forced to change this on next login.`);
+      setResetPassResult({
+        ownerName: res.owner.name,
+        tempPassword: res.temporary_password || 'N/A',
+      });
+      setResetPassCopied(false);
       loadAdminData();
     } catch (err: any) {
-      alert(err.message || 'Failed to reset password');
+      setErrorMessage(err.message || 'Failed to reset password');
     }
+  };
+
+  const copyResetPassword = (pass: string) => {
+    navigator.clipboard.writeText(pass);
+    setResetPassCopied(true);
+    setTimeout(() => setResetPassCopied(false), 2500);
   };
 
   const copyToClipboard = (text: string) => {
@@ -882,6 +894,57 @@ export const AdminDashboardPage: React.FC = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* RESET PASSWORD RESULT MODAL */}
+      {resetPassResult && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={() => setResetPassResult(null)}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-gray-100"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
+                <Key className="w-5 h-5 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-gray-900">Password Reset Successful</h3>
+                <p className="text-xs text-gray-500 mt-0.5">New temporary credentials for {resetPassResult.ownerName}</p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/60 mb-4">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700 mb-1.5">New Temporary Password</div>
+              <div className="flex items-center justify-between gap-3">
+                <code className="text-base font-black text-amber-900 tracking-wider">{resetPassResult.tempPassword}</code>
+                <button
+                  onClick={() => copyResetPassword(resetPassResult.tempPassword)}
+                  className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 shrink-0"
+                >
+                  {resetPassCopied ? (
+                    <><CheckCircle2 className="w-3.5 h-3.5" /> Copied!</>
+                  ) : (
+                    <><Copy className="w-3.5 h-3.5" /> Copy</>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-500 mb-5 leading-relaxed">
+              The owner's password has been reset. They will be <span className="font-semibold text-gray-800">required to change this</span> on their next login.
+            </p>
+
+            <button
+              onClick={() => setResetPassResult(null)}
+              className="w-full py-2.5 bg-[#166534] hover:bg-[#064E3B] text-white text-xs font-bold rounded-xl transition-all shadow-md"
+            >
+              Done
+            </button>
           </div>
         </div>
       )}

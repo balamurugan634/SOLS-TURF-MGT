@@ -3,7 +3,14 @@ import {
   AdminStats, OwnerAnalytics, PricingRule, AuditLogItem
 } from '../types';
 
-const API_BASE_URL = '/api';
+const getApiBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return '/api';
+  const clean = envUrl.trim().replace(/\/+$/, '');
+  return clean.endsWith('/api') ? clean : `${clean}/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export const getAuthToken = (): string | null => {
   return localStorage.getItem('turfhub_token');

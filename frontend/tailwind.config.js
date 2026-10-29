@@ -15,7 +15,7 @@ export default {
           card: '#FFFFFF',
           text: '#111827',
           border: '#E5E7EB',
-          muted: '#6B7280',
+          muted: '#64748B',
         }
       },
       fontFamily: {

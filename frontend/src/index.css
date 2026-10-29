@@ -27,7 +27,7 @@
 
 /* Glassmorphism helpers */
 .glass-nav {
-  background: rgba(6, 78, 59, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -49,8 +49,17 @@
   50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.7); }
 }
 
+@keyframes slideDrawer {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-drawer {
+  animation: slideDrawer 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-pulse-glow {

@@ -21,6 +21,9 @@ ENV/
 
 # Database (optional to ignore or include; seed script regenerates instantly)
 backend/db.sqlite3
+backend/staticfiles/
+.vercel/
+
 
 # IDE / Editor
 .vscode/

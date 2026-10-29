@@ -993,3 +993,59 @@ def admin_audit_logs_view(request):
     """Admin endpoint to view audit logs for security and compliance."""
     logs = AuditLog.objects.all().select_related("user")[:100]
     return Response(AuditLogSerializer(logs, many=True).data)
+
+
+# ==========================================
+# SYSTEM & DEPLOYMENT VIEWS
+# ==========================================
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def health_check_view(request):
+    """Health check endpoint to verify backend service status."""
+    return Response({
+        "status": "healthy",
+        "service": "TurfHub API",
+        "timestamp": timezone.now().isoformat()
+    })
+
+
+@api_view(["GET", "POST"])
+@permission_classes([permissions.AllowAny])
+def setup_database_view(request):
+    """
+    Automated database migration and seeding endpoint for serverless deployments.
+    Guarded by DEPLOY_SECRET or SECRET_KEY query parameter.
+    Usage: /api/setup-db/?secret=<DEPLOY_SECRET>
+    """
+    import os
+    import io
+    from django.conf import settings
+    from django.core.management import call_command
+
+    deploy_secret = os.getenv("DEPLOY_SECRET", settings.SECRET_KEY)
+    provided_secret = request.query_params.get("secret") or (request.data.get("secret") if hasattr(request, "data") else None)
+
+    if not provided_secret or provided_secret != deploy_secret:
+        return Response(
+            {"error": "Unauthorized. Please provide valid ?secret= matching DEPLOY_SECRET or SECRET_KEY."},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    out_migrate = io.StringIO()
+    call_command("migrate", interactive=False, stdout=out_migrate)
+
+    out_seed = io.StringIO()
+    try:
+        call_command("seed_turfhub", stdout=out_seed)
+        seed_result = out_seed.getvalue()
+    except Exception as e:
+        seed_result = f"Seed output: {str(e)}"
+
+    return Response({
+        "status": "success",
+        "message": "Database migrated and seeded successfully with demo accounts!",
+        "migrate_log": out_migrate.getvalue()[-600:],
+        "seed_log": seed_result[-600:],
+    })
+
